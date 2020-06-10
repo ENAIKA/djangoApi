@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     'django_registration',
     'rest_framework',
     'rest_framework.authtoken',
-    'points.app.PointsConfig',
+    'points',
     'tinymce',
 
 ]
