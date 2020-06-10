@@ -1,0 +1,5 @@
+Hello {{username}}
+
+Welcome to Zawadi, share your projects and let the jury grade!
+
+Your paswword is {{paswword}}
