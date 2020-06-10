@@ -1,0 +1,25 @@
+{%extends 'all/base.html'%} 
+{% load bootstrap4 %}
+<!-- Some content here-->
+
+{%block content%}
+<div class="container">
+
+  <em> Name: {{project.project_name}}<br></em>
+
+
+
+<img src="{{project.image.url}}" class="img-responsive"><br>
+
+
+<em>Caption:</em> {{project.caption}} <br> 
+ <form method="POST" action="/project/{{project.id}}/like"enctype="multipart/form-data" >
+    {%csrf_token%}
+    <button name="like" id="like" type="submit"> <span class="text-danger">{{project.like.count}} </span> <span><i class="fas fa-heart"></i></span></button>
+
+</form>
+
+
+
+</div>
+{%endblock%}
