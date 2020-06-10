@@ -119,14 +119,7 @@ WSGI_APPLICATION = 'award.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "zawadi",
-            'USER':'esther',
-            'PASSWORD':"NaiMori@2020",
-        }
-}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
