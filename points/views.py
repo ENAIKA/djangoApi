@@ -29,7 +29,7 @@ class UserList(APIView):
         return Response(serializers.data)
     
     def post(self, request, format=None):
-          serializers = ProjectSerializer(data=request.data)
+          serializers = UserSerializer(data=request.data)
           if serializers.is_valid():
               serializers.save()
               return Response(serializers.data, status=status.HTTP_201_CREATED)
