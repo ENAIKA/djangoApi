@@ -1,0 +1,38 @@
+{%extends 'all/base.html'%}
+
+{%block content%}
+<br>
+<div class="container" style="background-image: url('/static/img/background.jpg');">
+    <div class="row" style="color:white;">
+        {% if projects %}
+        <h2 class="">Found {{ projects|length }} projects of searched term {{message}}</h2>
+        {% else %}
+        <h2> Found 0 projects for the search term {{message}}</h2>
+        {% endif %}
+
+    </div>
+
+    <div class="row d-flex">
+
+        {% if projects %}
+        
+        <div class="d-flex flex-row">
+            {% for project in projects %}
+            <div class="d-flex flex-column" style="padding-left: 2%;">
+                
+            
+            <div class="card">
+                {{project.project_name}}
+                <img src="{{project.image.url}}" class="thumbnail"><br>
+              <a href="{{project.url}}">View project</a> 
+               <p><span class="text-danger"> {{project.like.count}}</span>  <span class="text-danger"><i class="fa fa-heart"></i></span></p>
+            </div>
+        </div> 
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+
+{%endblock%}
