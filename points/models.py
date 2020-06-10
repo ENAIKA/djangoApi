@@ -14,6 +14,9 @@ class UserProfile(models.Model):
     photo=models.ImageField(upload_to = 'profile/', blank=True)
     bio=models.TextField()
     email=models.EmailField()
+    username=models.CharField(max_legth=40)
+    first_name=models.CharField(max_length=60)
+    last_name_name=models.CharField(max_length=60)
     user=models.OneToOneField(User, on_delete=models.CASCADE,related_name="userprofile")
     created=models.DateTimeField(auto_now_add=True)
     def __str__(self):
