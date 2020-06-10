@@ -1,1 +1,1 @@
-web: gunicorn pynstar.wsgi --log-file -
+web: gunicorn award.wsgi --log-file -
