@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     'django_registration',
     'rest_framework',
     'rest_framework.authtoken',
-    'points',
+    'points.app.PointsConfig',
     'tinymce',
 
 ]
@@ -94,7 +94,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-c_URLCONF = 'award.urls'
+ROOT_URLCONF = 'award.urls'
 
 TEMPLATES = [
     {
@@ -154,7 +154,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Email configurations remember to install python-decouple
+#Email configurations remember to install python-decouple
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT')
@@ -176,3 +176,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 django_heroku.settings(locals())
 
 LOGIN_REDIRECT_URL='/'
+
