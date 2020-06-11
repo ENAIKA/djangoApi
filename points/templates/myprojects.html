@@ -1,0 +1,35 @@
+{%extends 'all/base.html'%}
+{% load bootstrap4 %}
+<!-- Some content here-->
+
+{%block content%}
+<br>
+<div class="container">
+    <div class="row d-flex">
+
+        {% if projects %}
+        
+        <div class="d-flex flex-row">
+            {% for project in projects %}
+            <div class="d-flex flex-column" style="padding-left: 2%;">
+                
+            
+            <div class="card">
+                {{project.project_name}}
+                <a href="/project/{{project.id}}"><img src="{{project.image.url}}" style="width: 320px; height: 240px;"></a><br>
+              <em><Caption>{{project.description}}</Caption> </em> 
+               <p><span class="text-danger"> {{project.like.count}}</span>  <span class="text-danger"><i class="fa fa-heart"></i></span> <a href='{{project.url}}'>View</a></p>
+              
+            </div>
+        </div> 
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+   
+    
+
+
+   
+</div>
+{%endblock%}
