@@ -19,13 +19,14 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.views.generic import TemplateView,RedirectView
-from .forms import SignUpForm,CommentForm,WelcomeForm,ProjectForm
+from .forms import RegisterForm,CommentForm,WelcomeForm,ProjectForm,SignUpForm
 #Create your views here........
 class UserList(APIView):
     permission_classes = (IsAdminOrReadOnly,)
     def get(self, request, format=None):
-        all_users =UserProfile.objects.all()
+        all_users =UserProfile.objects.all()       
         serializers = UserSerializer(all_users, many=True)
+        
         return Response(serializers.data)
     
     def post(self, request, format=None):
@@ -130,12 +131,15 @@ def welcome(request):
 def registerPage(request):
     
     if request.method=="POST":
-        form=SignUpForm(request.POST)
+        form=RegisterForm(request.POST)
+        
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('login')
+       
     else: 
-        form=SignUpForm()
+        form=RegisterForm()
+       
     
     return render(request, 'django_registration/registration_form.html', {'form':form})
 
@@ -203,17 +207,84 @@ def allprojects(request):
 
 @login_required
 def uploadproject(request,user_id):
-    user=User.objects.get(pk=user_id)
+    
     if request.method=="post":
-        form=ProjectForm(request.POST, request.FILES, instance=request.user)
+        form=ProjectForm(request.POST, request.FILES,instance=request.user)
         if form.is_valid():
-            project_name = form.cleaned_data['project_name']
-            description = form.cleaned_data['description']
-            url = form.cleaned_data['url']
-            image= form.cleaned_data['image']
-            project=Project(project_name=project_name,url=url, description=description,image=image,user=user)
-            project.save()
-            HttpResponseRedirect('allprojects.html')
+            instance=form.save(commit=False)
+            values=form.cleaned_data()
+            instance.save()
+            values.save()
+            print(values)
+            print(instance)
+            # form.save(commit=False)
+            # project_name = form.cleaned_data['project_name']
+            # description = form.cleaned_data['description']
+            # url = form.cleaned_data['url']
+            # image= form.cleaned_data['image']
+            # user=request.user
+            # project=Project(project_name=project_name,url=url, description=description,image=image,author=user)
+            # project.save()
+            
+            # return HttpResponseRedirect('allprojects')
+            return redirect('allprojects.html')
     else:
         form = ProjectForm()
     return render(request, 'uploadproject.html', {"form":form})
+
+
+@login_required
+def userprofile(request, user_id):
+    if not request.user.is_authenticated:
+        return redirect('django_registration/login.html')
+    else:
+        user=User.objects.get(id=user_id) 
+              
+        return render(request,'profile.html',{'user':user})
+@login_required
+def userprojects(request, user_id):
+    if not request.user.is_authenticated:
+        return redirect('django_registration/login.html')
+    else:
+        user=request.user
+        projects= Project.objects.filter( author=user)       
+        return render(request,'myprojects.html',{'projects':projects})
+@login_required
+def updateprofile(request,user_id):
+    r_form=SignUpForm(request.POST, request.FILES,instance=request.user.profile)
+    if request.method=='POST':
+        if r_form.is_valid():
+            bio=request.POST.get('bio')
+            photo=request.POST.get('photo')
+            new_user=UserProfile(bio=bio,photo=photo, user=request.user)
+            new_user.save()            
+            messages.success(request, ('Your profile was successfully updated!'))
+            return HttpResponseRedirect("userprofile", args=[str(user_id)]) 
+        else:
+            messages.error(request, ('Please correct the error below.'))
+
+    else:
+        r_form=SignUpForm()
+
+    return render(request, 'django_registration/update_form.html', {'r_form':r_form})
+@login_required
+def juryverdict(request, project_id):
+    form=CommentForm(request.POST)
+    if request.method=='POST':
+        if form.is_valid():
+            usability=request.POST.get('usability')
+            content=request.POST.get('content')
+            design=request.POST.get('design')
+            project=Project.objects.filter(author_id=request.user)
+            
+            new_verdict=Rates(usability=usability,content=content,design=design, jury=request.user, project=project_id.Project.project)
+            new_verdict.save()
+            messages.success(request, ('Your verdict was successfully uploaded!'))
+
+            return HttpResponseRedirect(reverse("projects", args=[str(project_id)] ))
+        else:
+            messages.error(request, ('Please correct the error below.'))
+    else:
+        form=CommentForm()
+
+    return render(request, 'django_registration/comment_form.html', {'form':form})
