@@ -7,11 +7,15 @@ class WelcomeForm(forms.ModelForm):
     class Meta:
         model=User
         fields=['email','username']
+class SignUpForm(forms.ModelForm):
+    class Meta:
+        model=UserProfile
+        fields=['photo', 'bio']
 
-class SignUpForm(UserCreationForm):
+class RegisterForm(UserCreationForm):
   class Meta:
-    model=UserProfile
-    fields=['username','first_name','last_name','email', 'password1','password2','photo', 'bio']
+    model=User
+    fields=['username','first_name','last_name','email', 'password1','password2']
 
 class ProjectForm(forms.ModelForm):
     class Meta:
