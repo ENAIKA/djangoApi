@@ -6,16 +6,14 @@
         <div class="col-md-6">
 
             {% if user.is_authenticated %}
-            <form action="/uploadphoto/{{user.id}}/" method="post" enctype="multipart/form-data">
+            <form action="/uploadproject/{{user.id}}/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-
-
                 {{ form.project_name.label_tag}}
                 {{ form.project_name }}<br>
                 {{ form.description.label_tag}}
                 {{form.description }}<br>
                 {{form.image.label_tag}}
-                {{form.image }}
+                {{form.image }}<br>
                 Deployed link: {{form.url}}
                 <hr>
 
