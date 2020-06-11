@@ -1,17 +1,88 @@
 {%extends 'all/base.html'%}
 {% block content %}
 
-<div class="container" style="background-image: url('/static/img/background.png');">
-    <div class="row">
-        <div class="col-md-6">
-
-        </div>
-        <div class="col-md-6">
-         Welcome to Juryzawadi app, grade projects! 
-                
-               
-        </div>
-    
-
+<div>
+    <img src="/static/img/background.png" style="width: 100%; height:100% ;">
 </div>
+
+<div class="jumbotron">
+    <div class="row">
+
+        <div class="col-md-3">
+
+            Welcome to Juryzawadi, grade projects!
+
+        </div>
+        <div class="col-md-3">
+            Be inspired by other users' projects!
+        </div>
+        <div class="col-md-6">
+            Login to share your projects
+
+            <h1><a class="badge badge-info" href="{%url 'login' %}"> Login</a></h1>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<br><br>
+
+<footer>
+
+
+    <div class="row ">
+        <div class="col-md-5">
+            <div class="row ">
+                <div class="col-sm-2">
+                    <h6> <a style="color:darkblue;" href="/">ABOUT</a></h6>
+                </div>
+                <div class="col-sm-2">
+
+                    <h6> <a style="color:darkblue;" href="/">HELP</a></h6>
+                </div>
+                <div class="col-sm-2">
+                    <h6>
+                        <a style="color:darkblue;" href="/api/users/">API</a></h6>
+                </div>
+                <div class="col-sm-2">
+                    <h6> <a style="color:darkblue;" href="/">JOBS</a></h6>
+                </div>
+                <div class="col-sm-2">
+                    <h6> <a style="color:darkblue;" href="/">PRIVACY</a></h6>
+                </div>
+                <div class="col-sm-2">
+                    <h6> <a style="color:darkblue;" href="/">TERMS</a></h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-sm-2">
+                    <h6> <a style="color:darkblue;" href="/">LOCATIONS</a></h6>
+                </div>
+                <div class="col-sm-3">
+                    <h6> <a style="color:darkblue;" href="/">TOP ACCOUNTS</a></h6>
+                </div>
+                <div class="col-sm-2">
+                    <h6> <a style="color:darkblue;" href="/">HASHTAGS</a></h6>
+                </div>
+                <div class="col-sm-2">
+                    <h6> <a style="color:darkblue;" href="/">LANGUAGE</a></h6>
+                </div>
+
+                <div class="col-sm-3">
+
+                    <h6> &copy; 2020 juryzawadi</h6>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
 {% endblock %}
