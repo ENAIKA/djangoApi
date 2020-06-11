@@ -1,23 +1,57 @@
-{%extends 'all/base.html'%} 
+{%extends 'all/base.html'%}
 {% load bootstrap4 %}
 <!-- Some content here-->
 
 {%block content%}
 <div class="container">
 
-  <em> Name: {{project.project_name}}<br></em>
+    
 
 
 
-<img src="{{project.image.url}}" class="img-responsive"><br>
+    <img src="{{project.image.url}}" class="img-responsive" style="width: 100%;"><br>
 
 
-<em>Caption:</em> {{project.caption}} <br> 
- <form method="POST" action="/project/{{project.id}}/like"enctype="multipart/form-data" >
-    {%csrf_token%}
-    <button name="like" id="like" type="submit"> <span class="text-danger">{{project.like.count}} </span> <span><i class="fas fa-heart"></i></span></button>
+    <em>Description:</em> {{project.description}} <br>
+    <div class="row">
+        <div class="col-sm-3">
+            <form method="POST" action="/project/{{project.id}}/like" enctype="multipart/form-data">
+                {%csrf_token%}
+                <button name="like" id="like" type="submit"> <span class="text-danger">{{project.like.count}} </span>
+                    <span><i class="fas fa-heart"></i></span></button>
 
-</form>
+            </form>
+        </div>
+        <div class="col-sm-3">
+            <a target="_blank" href="{{project.url}}">View</a> <em>  {{project.project_name}}<br></em>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-2">
+                    usability<br>
+                 {{project.rates.usability}}
+                </div>
+                <div class="col-sm-2">
+                    Content<br>
+                    {{project.author.rates.content}}
+                </div>
+                <div class="col-sm-2">
+                    design<br>
+                    {{project.author.rates.design}}
+                </div>
+                <div class="col-sm-2">
+                    {{project.rates.design}}+{{project.rates.content}}+{{project.rates.usability}}
+                </div>
+                <div class="col-sm-2">
+                    <a href="/juryverdict/{{project.id}}">Judge/Grade</a>
+                </div>
+                <div class="col-sm-2">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
